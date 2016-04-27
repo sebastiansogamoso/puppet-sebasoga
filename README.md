@@ -1,71 +1,48 @@
-# Using this Template
+# Personal Puppet module for Boxen
 
-Bootstrap it:
-
-```
-mkdir -p ~/src/boxen/puppet-mynewmodule
-cd ~/src/boxen/puppet-mynewmodule
-git init .
-git remote add template https://github.com/boxen/puppet-template.git
-git fetch template
-git checkout -b master template/master
-```
-
-Now edit the class name in `manifests/init.pp` and `spec/classes/template_spec.rb` to match the name of the module, without forgetting to rename `template_spec.rb` accordingly.
-
-Now we're ready to make it our own and run a build!
+A personal Puppet module is a great way to keep Boxen clean from many pesonal
+manifests. This means that adding a personal configuration is done by adding the
+module in the `Puppetfile`.
 
 ```
-script/cibuild
-.bundle/binstubs/rspec-puppet-init
+github "sebasoga", "1.0.0", :repo => "sebasoga/puppet-sebasoga"
 ```
 
-Note that unless you have edited the class name and then run the above scripts, puppet-lint will fail during the cibuild with an error message similar to:
-
-```
---> Checking lint:
-manifests/init.pp - ERROR: template not in autoload module layout on line 2
-```
-
-If your module has other dependencies, be sure to update
-`spec/fixtures/Puppetfile`.
-From then on, you can use `script/cibuild` to run the tests.
-
-When you're ready to push:
-
-```
-git create githubusername/puppet-mynewmodule
-git push origin master
-```
-
-The rest of the README as follows can be used as a template for your module's README.
-
-# Template Puppet Module for Boxen
-
-An example of how we write Puppet modules for Boxen. Replace this
-paragraph with a short explanation of what the heck makes your module
-useful.
-
-A great module has a working travis build
-
-[![Build Status](https://travis-ci.org/boxen/puppet-template.svg?branch=master)](https://travis-ci.org/boxen/puppet-template)
 
 ## Usage
 
-```puppet
-boxen::example { 'best example ever':
-  salutation => 'fam'
-}
+This pasticular module is contained in a class named `sebasoga` and also 
+contains files for installing `desktop` applications, `development` tools,
+personal `dotfiles` and to set `osx_preferences`.
+
+It also contains a file for `all`. This enables installing everything in boxen 
+by adding `include sebasoga::all` only modifying the module version in the 
+`Puppetfile`.
+
 ```
+class sebasoga::all
+class sebasoga::desktop
+class sebasoga::development
+class sebasoga::dotfiles
+class sebasoga::osx_preferences
+```
+
+
+## Tags
+
+Remember to tag the version so that it can later be uses in the `Puppetfile`.
+
+```
+git tag -a 1.0.0
+git push --tags
+```
+
+## Get your own
+
+Get the puppet-template from https://github.com/boxen/puppet-template and start
+making your own Puppet module.
+
 
 ## Required Puppet Modules
 
 * `boxen`
-* `anything-else`
-
-## Development
-
-Set `GITHUB_API_TOKEN` in your shell with a [Github oAuth Token](https://help.github.com/articles/creating-an-oauth-token-for-command-line-use) to raise your API rate limit. You can get some work done without it, but you're less likely to encounter errors like `Unable to find module 'boxen/puppet-boxen' on https://github.com`. You can also set this environment variable securely on Travis to ensure your CI builds don't run into the same issue - check out Travis's [docs on repository settings](http://docs.travis-ci.com/user/environment-variables/).
-
-Then write some code. Run `script/cibuild` to test it. Check the `script`
-directory for other useful tools.
