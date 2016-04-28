@@ -14,7 +14,8 @@ class sebasoga::desktop {
       'mailplane',
       'pgadmin3',
       'rescuetime',
-      'vlc',
+      'screenhero',
+      'atom',
     ]:
     provider => 'brewcask',
     install_options => ["--appdir=/Applications"]
