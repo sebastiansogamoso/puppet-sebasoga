@@ -16,6 +16,7 @@ class sebasoga::desktop {
       'rescuetime',
       'screenhero',
       'atom',
+      'spotify',
     ]:
     provider => 'brewcask',
     install_options => ["--appdir=/Applications"]
